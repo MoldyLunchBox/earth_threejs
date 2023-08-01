@@ -35,16 +35,16 @@ function main()
     // create earthGeometry
     const earthGeometry = new THREE.SphereGeometry(0.5,32,32);
     const earthMaterial = new THREE.MeshPhongMaterial({
-        map: new THREE.TextureLoader().load('texture/earthmap.jpeg'),
-        bumpMap: new THREE.TextureLoader().load('texture/earthbump.jpeg'),
-        bumpScale: 0.00001,
-        displacementScale:0.1,
-        displacementBias: -1
+        // color:"#fef08a",
+        map: new THREE.TextureLoader().load('texture/blue.jpg'),
+        // bumpMap: new THREE.TextureLoader().load('texture/yellow_map.png'),
+        displacementScale: 0.1, // Adjust the intensity of the displacement (bumpiness)
+
     });
     const displacementMap = new THREE.TextureLoader().load(
-        'texture/earthCloud.png'
+        'texture/displace_yellow.png'
         )
-        earthMaterial.displacementMap = displacementMap
+        // earthMaterial.displacementMap = displacementMap
     const earthMesh = new THREE.Mesh(earthGeometry,earthMaterial);
     scene.add(earthMesh);
 
@@ -58,12 +58,14 @@ function main()
     scene.add(pointerlight);
 
     // create cloudGeometry
-    const cloudGeometry = new THREE.SphereGeometry(0.52, 64, 64);
+    const cloudGeometry = new THREE.SphereGeometry(0.48, 64, 64);
         const cloudMaterial = new THREE.MeshPhongMaterial({
-        map: new THREE.TextureLoader().load('texture/earthCloud.png'),
-        displacementMap: new THREE.TextureLoader().load('texture/continentDisplacementMap.png'),
-        displacementScale: 0.02, // Adjust the displacement scale as needed
+        map: new THREE.TextureLoader().load('texture/grad.jpg'),
+        // color: "#84cc16",
+        displacementMap: new THREE.TextureLoader().load('texture/test.png'),
+        displacementScale: 0.1, // Adjust the displacement scale as needed
         transparent: true,
+    
       });
     const cloudMesh = new THREE.Mesh(cloudGeometry,cloudMaterial);
     scene.add(cloudMesh);
@@ -74,18 +76,9 @@ function main()
         map: new THREE.TextureLoader().load('texture/galaxy.png'),
         side: THREE.BackSide
     });
-    const continentMaterial = new THREE.MeshBasicMaterial({
-        color: 0xffffff, // Set the color to white (or any color you want for the continents)
-        transparent: true,
-        opacity: 0.5, // Adjust the opacity as needed
-      });
-    
-      // For this example, we'll use the same earthGeometry for both the earthMesh and continentMesh
-      const continentMesh = new THREE.Mesh(earthGeometry, continentMaterial);
-      scene.add(continentMesh);
+
     
       // Position the continent mesh slightly above the Earth mesh
-      continentMesh.position.y = 0.02;
     
     const starMesh = new THREE.Mesh(starGeometry,starMaterial);
     scene.add(starMesh);
